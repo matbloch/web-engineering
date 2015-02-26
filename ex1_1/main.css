@@ -5,7 +5,7 @@
 */
 
 /*------------------------------------*\
-    BASE STRUCTURE
+    RESET
 \*------------------------------------*/
 
 /* global box-sizing */
@@ -179,7 +179,6 @@ a:focus {
         width: 270px;
     }
 /* footer */
-.footer .box { width: 25% }
 .footer .social-media img { width: 34px }
 
 /*------------------------------------*\
