@@ -18,14 +18,14 @@
     font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
-/* html element 62.5% font-size for REM use */
+
 html,
 body {
     margin: 0;
     padding: 0;
 }
 html {
-    font-size: 62.5%;
+    font-size: 13px;
     width: 100%;
     height: 100%;
 }
@@ -47,12 +47,21 @@ img {
 a:hover,
 a:active { outline: 0 }
 
+ul{
+list-style:none;
+margin: 0;
+padding: 0;
+}
+strong{
+font-weight:bold;
+}
 /*------------------------------------*\
     LAYOUTING HELPERS
 \*------------------------------------*/
 
 .clr-white { color: white }
 .bg-clr-white { background-color: white }
+.bg-clr-white-transp { background-color: rgba(255, 255, 255, 0.6); }
 /* dark green - e.g. footer bg clr */
 .clr-dark-green { color: #027d8d }
 .bg-clr-dark-green { background-color: #027d8d }
@@ -61,11 +70,12 @@ a:active { outline: 0 }
 .padding-l-20 { padding-left: 20px }
 .padding-r-20 { padding-right: 20px }
 .padding-lr-20 { padding: 0 20px }
+.padding-b-20 { padding-bottom: 20px }
 .padding-10 { padding: 10px }
 .padding-l-10 { padding-left: 10px }
 .padding-r-10 { padding-right: 10px }
 .padding-lr-10 { padding: 0 10px }
-
+.padding-b-10 { padding-bottom: 10px }
 /*------------------------------------*\
     GRID
 \*------------------------------------*/
@@ -185,16 +195,75 @@ a:focus {
     PAGES
 \*------------------------------------*/
 
-section { padding: 20px }
+section { 
+padding: 20px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+section.full-width{
+padding: 0;
+}
+
 /* home */
 section.intro {
     -moz-box-shadow: inset 0 0 10px #000000;
     -webkit-box-shadow: inset 0 0 10px #000000;
     box-shadow: inset 0 0 10px #000000;
     background: url(images/bg1.png) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
     section.intro .description { background-color: rgba(0, 0, 0, 0.42) }
+	
+section.blog {
+    background: url(images/bg2.png) no-repeat center center;
+}
+section.blog img{
+    float:left;
+	width:120px;
+margin-right: 10px;
+margin-bottom: 10px;
+}
+section.blog li > div{
+height: 200px;
+}
+	
+section.portfolio {
+    background: url(images/bg3.png) no-repeat center center;
+}
+section.portfolio li > div{
+height: 236px;
+}
+	
+section.contactus {
+    background: url(images/bg4.png) no-repeat center center;
+}
+
+
+
+	
+/*------------------------------------*\
+    RESPONSIVE
+\*------------------------------------*/
+
+/*== non mobile first == */
+
+/* tablet/portrait */
+@media only screen and (max-width : 1023px) {
+
+}
+
+/* smartphone/landscape */
+@media only screen and (max-width : 767px) {
+
+}
+
+/* smartphone/portrait */ 
+@media only screen and (max-width : 479px) {
+
+}
+
+/* Custom */ 
+@media only screen and (max-width : 320px) {
+    
+}
