@@ -1,13 +1,11 @@
 /*
     Description: Ex 1.1
     Version: 1.0.0
-    Authors: Matthias Bloch, ...
+    Authors: Amrollah Seifoddini, Matthias Bloch, David Lanyi
 */
-
 /*------------------------------------*\
     RESET
 \*------------------------------------*/
-
 /* global box-sizing */
 *,
 *:after,
@@ -18,7 +16,6 @@
     font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
-
 html,
 body {
     margin: 0;
@@ -46,22 +43,18 @@ img {
 }
 a:hover,
 a:active { outline: 0 }
-
-ul{
-list-style:none;
-margin: 0;
-padding: 0;
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
-strong{
-font-weight:bold;
-}
+strong { font-weight: bold }
 /*------------------------------------*\
     LAYOUTING HELPERS
 \*------------------------------------*/
-
 .clr-white { color: white }
 .bg-clr-white { background-color: white }
-.bg-clr-white-transp { background-color: rgba(255, 255, 255, 0.6); }
+.bg-clr-white-transp { background-color: rgba(255, 255, 255, 0.6) }
 /* dark green - e.g. footer bg clr */
 .clr-dark-green { color: #027d8d }
 .bg-clr-dark-green { background-color: #027d8d }
@@ -79,7 +72,6 @@ font-weight:bold;
 /*------------------------------------*\
     GRID
 \*------------------------------------*/
-
 .row {
     width: 100%;
     position: relative;
@@ -113,11 +105,11 @@ font-weight:bold;
 .col-3 { width: 25% }
 .col-2 { width: 16.666666666666666666666666666667% }
 .col-1 { width: 8.333333333333333333333333333333% }
-
+.float-right { float: right }
+.float-left { float: left }
 /*------------------------------------*\
     TEXT STYLING
 \*------------------------------------*/
-
 /* headings */
 h1,
 h2,
@@ -156,11 +148,9 @@ a:focus {
     text-decoration: none;
     color: #444;
 }
-
 /*------------------------------------*\
     BASE LAYOUT
 \*------------------------------------*/
-
 .page-wrapper {
     width: 1000px;
     margin: 50px auto;
@@ -170,6 +160,17 @@ a:focus {
     position: relative;
     background-color: white;
 }
+section {
+    padding: 20px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+section.full-width { padding: 0 }
+section h2 { font-size: 40px }
 /* navigation */
 .nav {
     height: 62px; /* same as icons */
@@ -190,80 +191,47 @@ a:focus {
     }
 /* footer */
 .footer .social-media img { width: 34px }
-
 /*------------------------------------*\
     PAGES
 \*------------------------------------*/
-
-section { 
-padding: 20px;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-section.full-width{
-padding: 0;
-}
-
 /* home */
 section.intro {
     -moz-box-shadow: inset 0 0 10px #000000;
     -webkit-box-shadow: inset 0 0 10px #000000;
     box-shadow: inset 0 0 10px #000000;
-    background: url(images/bg1.png) no-repeat center center;
+    background-image: url(images/bg1.png);
 }
     section.intro .description { background-color: rgba(0, 0, 0, 0.42) }
-	
-section.blog {
-    background: url(images/bg2.png) no-repeat center center;
-}
-section.blog img{
-    float:left;
-	width:120px;
-margin-right: 10px;
-margin-bottom: 10px;
-}
-section.blog li > div{
-height: 200px;
-}
-	
-section.portfolio {
-    background: url(images/bg3.png) no-repeat center center;
-}
-section.portfolio li > div{
-height: 236px;
-}
-	
-section.contactus {
-    background: url(images/bg4.png) no-repeat center center;
-}
-
-
-
-	
+section.blog { background-image: url(images/bg2.png) }
+    section.blog img {
+        float: left;
+        width: 120px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    section.blog li > div { height: 200px }
+section.portfolio { background-image: url(images/bg3.png) }
+    section.portfolio li > div { height: 236px }
+section.contactus { background-image: url(images/bg4.png) }
+    section.contactus input { float: right }
+    section.contactus textarea { width: 100% }
 /*------------------------------------*\
     RESPONSIVE
 \*------------------------------------*/
-
 /*== non mobile first == */
-
 /* tablet/portrait */
-@media only screen and (max-width : 1023px) {
-
+@media only screen and (max-width:1023px) { 
+    
 }
-
 /* smartphone/landscape */
-@media only screen and (max-width : 767px) {
-
+@media only screen and (max-width:767px) { 
+    
 }
-
-/* smartphone/portrait */ 
-@media only screen and (max-width : 479px) {
-
+/* smartphone/portrait */
+@media only screen and (max-width:479px) { 
+    
 }
-
-/* Custom */ 
-@media only screen and (max-width : 320px) {
+/* Custom */
+@media only screen and (max-width:320px) { 
     
 }
