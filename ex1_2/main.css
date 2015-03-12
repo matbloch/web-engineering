@@ -221,15 +221,108 @@ section.contactus { background-image: url(images/bg4.png) }
 /*== non mobile first == */
 /* tablet/portrait */
 @media only screen and (max-width:1023px) { 
-    
+
+    .page-wrapper {
+		width: 100%;
+	}
+	.col-6,
+	.col-5,
+	.col-4,
+	.col-3,
+	.col-2,
+	.col-1 { width: 50% }
+
+	section.portfolio li > div { height: 430px; float:none }
+
+	.nav {
+		height: 62px; /* same as icons */
+	}
+    .nav .items {
+        overflow: auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 40px;
+        margin-right: 20px;
+    }
+    .nav .items li { display: inline-block; }
+    .nav .page-title {
+        float: left;
+        text-transform: uppercase;
+        font-size: 18px;
+		width:170px;
+    }
+
 }
 /* smartphone/landscape */
 @media only screen and (max-width:767px) { 
-    
+ 
+    .page-wrapper {
+		width: 100%;
+		margin-top:30px;
+		margin-bottom:30px;
+	}
+	.content-wrapper {
+		padding-top: 0;
+	}
+	.col-12,
+	.col-11,
+	.col-10,
+	.col-9,
+	.col-8 ,
+	.col-7 ,
+	.col-6,
+	.col-5,
+	.col-4,
+	.col-3,
+	.col-2,
+	.col-1 {width:100%;}
+
+	section.portfolio li > div { height: auto; float:none }
+
+	.nav {
+		height: 115px; /* same as icons */
+		background-color:white
+	}
+    .nav .items {
+        overflow: auto;
+        float: left;
+        padding: 0;
+        margin: 0;
+		margin-left: 20px;
+		text-align:center;
+		background-color:white
+    }
+    .nav .items li { display: inline; }
+    .nav .items li > a> img { height:50px }
+    .nav .page-title {
+        float: left;
+        text-transform: uppercase;
+        font-size: 18px;
+		width:100%;
+		clear: left
+    }
+ 
 }
 /* smartphone/portrait */
 @media only screen and (max-width:479px) { 
-    
+      .page-wrapper {
+		margin:0;
+	}
+	.content-wrapper {
+		margin: 0;
+		padding: 0;
+	}
+ 	.nav {
+		height: 95px;
+	}
+    .nav .items li > a> img { height:30px }
+     .nav .items {
+        margin: 0;
+		margin-left: 20px;
+		text-align:center;
+		background-color:white
+    }
+
 }
 /* Custom */
 @media only screen and (max-width:320px) { 
