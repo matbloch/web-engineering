@@ -251,6 +251,12 @@ section.contactus { background-image: url(images/bg4.png) }
         font-size: 18px;
 		width:170px;
     }
+	.clear-md{
+	clear:both;
+	}
+	.padding-md-b-20{
+	padding-bottom:20px;
+	}
 
 }
 /* smartphone/landscape */
