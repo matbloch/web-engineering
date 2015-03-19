@@ -155,21 +155,37 @@ a:focus {
     position: fixed;
     left: 50px;
     top: 50px;
-    width: 282px;
-    height: 282px;
+	min-height: 41px;
+	min-width: 41px;
+	height: 254px;
+     width: 254px;
     background: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
     z-index: 99;
     padding: 14px;
+
+}
+
+
+#hover_nav.closed{
+
 }
  #hover_nav .items {
      position: relative;
-     height: 100%;
-     width: 100%;
+	 height:100%;
+	 width:100%;
+
  }
-  #hover_nav .items li { position: absolute }
+ #hover_nav .content {
+ 	overflow: hidden;
+     position: relative;
+	 height:100%;
+	 width:100%;
+ }
+ 
+  #hover_nav .items li { position: absolute;width: 50%; }
  #hover_nav .index {
      top: 0;
      left: 0;
@@ -223,6 +239,8 @@ a:focus {
      top: 3px;
      left: 40px; /* 2px margin */
  }
+ 
+ 
 /*------------------------------------*\
     ANIMATIONS
 \*------------------------------------*/

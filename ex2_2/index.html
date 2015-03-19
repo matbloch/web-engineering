@@ -10,14 +10,16 @@
 
 		<body data-twttr-rendered="true">
 			<nav id="hover_nav">
-				<div class="button"></div>
-				<div class="sticky"></div>
-				<ul class="items">
-						<li class="index"><a href="index.html"><img src="images/mm1.png"></a></li>
-						<li class="blog"><a href="blog.html"><img src="images/mm2.png"></a></li>
-						<li class="portfolio"><a href="portfolio.html"><img src="images/mm3.png"></a></li>
-						<li class="contactus"><a href="contactus.html"><img src="images/mm4.png"></a></li>
-				</ul>
+				<a data-fn="open_close" class="button" href="#"></a>
+				<div class="content">
+					<a data-fn="stick" class="sticky" href="#"></a>
+					<ul class="items">
+							<li class="index"><a href="index.html"><img src="images/mm1.png"></a></li>
+							<li class="blog"><a href="blog.html"><img src="images/mm2.png"></a></li>
+							<li class="portfolio"><a href="portfolio.html"><img src="images/mm3.png"></a></li>
+							<li class="contactus"><a href="contactus.html"><img src="images/mm4.png"></a></li>
+					</ul>
+				</div>
 			</nav>
 			<div class="page-wrapper">
 				<header class="nav">
@@ -104,6 +106,10 @@
 					<!-- </footer> -->
 				</div>
 			</div>
-
 		</body>
+		
+			<!-- load js -->
+			<script type="text/JavaScript" src="js/vendor/jquery-1.11.2.min.js"></script>
+			<script type="text/JavaScript" src="js/vendor/jquery-ui.min.js"></script>
+			<script type="text/JavaScript" src="js/pin_menu.js"></script>
 </html>
