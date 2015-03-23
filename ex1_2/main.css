@@ -282,6 +282,9 @@ section.blog li {
 .footer .address{
     float: left;
 }
+.content-wrapper {
+		padding-top: 2px;
+	}
     .footer .col-3 > img {
     float: right;
     }
