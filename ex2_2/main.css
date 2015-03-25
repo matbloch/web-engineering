@@ -229,9 +229,9 @@ a:focus {
      top: 3px;
      left: 3px;
  }
- #hover_nav .sticky {
+ #hover_nav .pin {
      z-index: 999;
-     background: url(images/sticky_icon_on.png);
+     background: url(images/sticky_icon_off.png);
      background-size: 100% 100%;
      height: 16px;
      width: 16px;
@@ -239,7 +239,25 @@ a:focus {
      top: 3px;
      left: 40px; /* 2px margin */
  }
+ #hover_nav .pin.active {
+     background: url(images/sticky_icon_on.png);
+	 background-size: 100% 100%;
+ }
  
+ 
+ #hover_nav  {
+    opacity: .5;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+    -webkit-transition-delay: 0.5s; /* Safari */
+    transition-delay: 0.5s;
+}
+
+#hover_nav:hover {
+    opacity: 1;
+}
  
 /*------------------------------------*\
     ANIMATIONS
