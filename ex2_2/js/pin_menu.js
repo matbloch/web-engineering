@@ -82,9 +82,7 @@ jQuery(document).ready(function($) {
 		methods.stickToSide = function (e){
 			
 			// always abort if on hover
-			if ($selectors.container.is(":hover")) {
-					return;
-			}
+			if ($selectors.container.is(":hover")) {return;}
 			
 			// don't stick to side, if the menu is pinned, an animation is running,already sticked, or beeing draged
 			if(status.sticked || status.dragging || status.pinned || status.in_animation){return;}
@@ -177,13 +175,12 @@ jQuery(document).ready(function($) {
 			// add functionality: drageable
 			$selectors.container.draggable({
 				start: function(e) {
+					// set draging lock
 					status.dragging = 1;
 				},
 				stop: function(event, ui) {
-					// stick to side after dragging
-					setTimeout(function() {
-						status.dragging = 0;
-					}, settings.drag_block);		// dragbug fix
+					// release draging lock (fast movements lead to mouseout)
+					setTimeout(function() {status.dragging = 0;}, settings.drag_block);
 				}
 			});
 		
