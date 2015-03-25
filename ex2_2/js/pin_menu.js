@@ -10,12 +10,11 @@ jQuery(document).ready(function($) {
 	
 		/* default settings */
 		var settings = $.extend({
-			fadeout_opacity: 0.4,
-			drag_block: 200,
-			sticking_delay: 2000,
-			sticking_margin: 20,
-			stick_to_corner: 0,
-			stick_to_side:1
+			drag_block: 200,	// delay to fix fast drag movement
+			sticking_delay: 2000,	// delay before menu sticks to side
+			sticking_margin: 20,	// sticking margin
+			stick_to_corner: 0, 	
+			stick_to_side:1		// stick to the nearest browser side
 		}, options );
 		
 		/* setup selectors */
@@ -64,9 +63,6 @@ jQuery(document).ready(function($) {
 			
 			// toggle status class
 			$selectors.container.toggleClass('closed');
-			
-			// stick to the side after the menu has been resized
-			//methods.start_sticking();
 
 		}
 		
@@ -187,7 +183,6 @@ jQuery(document).ready(function($) {
 					// stick to side after dragging
 					setTimeout(function() {
 						status.dragging = 0;
-						//methods.start_sticking();
 					}, settings.drag_block);		// dragbug fix
 				}
 			});
@@ -198,6 +193,7 @@ jQuery(document).ready(function($) {
 			// add functionality: pinning
 			$selectors.pin.bind('click',methods.pin);
 			
+			// add functionality: sticking to window side
 			methods.start_sticking();
 
 		}
