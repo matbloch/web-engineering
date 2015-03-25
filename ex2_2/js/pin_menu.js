@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
 		var settings = $.extend({
 			fadeout_opacity: 0.4,
 			drag_block: 200,
-			sticking_delay: 300,
+			sticking_delay: 2000,
 			sticking_margin: 20,
 			stick_to_corner: 0,
 			stick_to_side:1
@@ -23,9 +23,10 @@ jQuery(document).ready(function($) {
 		
 		$selectors.container = $( this );
 		$selectors.stick = $selectors.container.find("[data-fn='stick']");
+		$selectors.pin = $selectors.container.find("[data-fn='pin']");
 		$selectors.openClose = $selectors.container.find("[data-fn='open_close']");
 		$selectors.items = $selectors.container.find(".items");
-		$selectors.content = $selectors.container.find(".content");
+		$selectors.content = $selectors.container.find(".content").add($selectors.pin);
 		
 		/* plugin status */
 		var status = {
@@ -33,9 +34,10 @@ jQuery(document).ready(function($) {
 			'menu_height' : $selectors.container.outerHeight(),
 			'menu_width' : $selectors.container.outerWidth(),
 			'sticked' : 0,
-			'dragging' : 0
+			'pinned' : 0,
+			'dragging' : 0,
+			'in_animation' : 0
 		}
-		
 		
 		/* methods */
 		var methods = {};
@@ -45,14 +47,14 @@ jQuery(document).ready(function($) {
 
 			e.preventDefault();
 			
-			console.log(status.dragging);
+			if(status.dragging || status.in_animation){ return;}
 			
-			if(status.dragging == 1){
-				return;
-			}
+			// handle animation lock
+			status.in_animation = 1; setTimeout(function() {status.in_animation = 0;}, 500);
 			
-			/* back to initial size */
+			// change size
 			if($selectors.container.hasClass('closed')){
+				// back to initial size
 				$selectors.container.animate({"height":status.menu_height+"px","width":status.menu_width+"px"}, 500);
 				$selectors.content.fadeIn(500);
 			}else{
@@ -60,117 +62,143 @@ jQuery(document).ready(function($) {
 				$selectors.content.fadeOut(500);
 			}
 			
+			// toggle status class
 			$selectors.container.toggleClass('closed');
+			
+			// stick to the side after the menu has been resized
+			//methods.start_sticking();
 
 		}
 		
-		/* handle the menu opacity */
-		methods.hoverOpacity = function (e){
-
-			$selectors.container.stop(true).animate({opacity: settings.fadeout_opacity}, 300)
+		methods.pin = function (e){
+			
+			e.preventDefault();
+			
+			// toggle status
+			status.pinned = !status.pinned;
+			
+			// toggle button
+			$selectors.pin.toggleClass('active');
 		
-			$selectors.container.mouseover(function() {
-				if(status.dragging == 1){return;}
-				$(this).stop(true).animate({opacity: 1.0}, 200);
-			  });
-			$selectors.container.mouseout(function() {
-				if(status.dragging == 1){return;}
-				$(this).stop(true).animate({opacity: settings.fadeout_opacity}, 300);
-			  });
 		}
 		
 		/* stick the menu to the side */
 		methods.stickToSide = function (e){
 			
-			if(status.sticked == 1){return;}
+			// always abort if on hover
+			if ($selectors.container.is(":hover")) {
+					return;
+			}
 			
-			setTimeout(function() {
+			// don't stick to side, if the menu is pinned, an animation is running,already sticked, or beeing draged
+			if(status.sticked || status.dragging || status.pinned || status.in_animation){return;}
 			
-				// check position
-				var windowWidth = $(window).width(); //retrieve current window width
-				var windowHeight = $(window).height(); //retrieve current window height
-				var position = $selectors.container.position();
-				var l = r = t = b = 0;
+			 console.log('===== now stick');
+			
+			// handle animation lock
+			status.in_animation = 1; setTimeout(function() {status.in_animation = 0;}, 500);
+			
+			// check position
+			var windowWidth = $(window).width(); //retrieve current window width
+			var windowHeight = $(window).height(); //retrieve current window height
+			var position = $selectors.container.position();
+			var l = r = t = b = 0;
 
-				// stick to nearest side
-				if(settings.stick_to_side){
-					l = position.left;
-					r = windowWidth - l - $selectors.container.width();
-					t = position.top;
-					b = windowHeight - t - $selectors.container.height();
-					
-					var margins = [l,r,t,b];
-					var i = margins.indexOf(Math.min.apply(Math, margins));
-					margins = [0,0,0,0];
-					margins[i] = 1;
-					
-					// animate
-					if(margins[0]){
-						$selectors.container.animate({"left":settings.sticking_margin+"px"}, 500).css({'right':'auto'});
-					}else if(margins[1]){
-						$selectors.container.animate({"right":settings.sticking_margin+"px"}, 500).css({'left':'auto'});
-					}else if(margins[2]){
-						$selectors.container.animate({"top":settings.sticking_margin+"px"}, 500).css({'bottom':'auto'});
-					}else if(margins[3]){
-						$selectors.container.animate({"bottom":settings.sticking_margin+"px"}, 500).css({'top':'auto'});
-					}
-					
-				}
-
-				// stick to corner
-				if(settings.stick_to_corner){
-					// vertical
-					if(position.left < windowWidth/2){
-						l = 1;
-					}else{
-						l = 0;
-					}
-					
-					// horizontal
-					if(position.top < windowHeight/2){
-						t = 1;
-					}else{
-						t = 0;
-					}
-					
-					// animate
-					if(t && l){
-						$selectors.container.animate({"left":settings.sticking_margin+"px","top":settings.sticking_margin+"px"}, 500).css({'right':'auto','bottom':'auto'});
-					}else if(t && !l){
-						$selectors.container.animate({"right":settings.sticking_margin+"px","top":settings.sticking_margin+"px"}, 500).css({'left':'auto','bottom':'auto'});
-					}else if(!t && l){
-						$selectors.container.animate({"left":settings.sticking_margin+"px","bottom":settings.sticking_margin+"px"}, 500).css({'right':'auto','top':'auto'});
-					}else if(!t && !l){
-						$selectors.container.animate({"right":settings.sticking_margin+"px","bottom":settings.sticking_margin+"px"}, 500).css({'left':'auto','top':'auto'});
-					}
+			// stick to nearest side
+			if(settings.stick_to_side){
+				l = position.left;
+				r = windowWidth - l - $selectors.container.width();
+				t = position.top;
+				b = windowHeight - t - $selectors.container.height();
+				
+				var margins = [l,r,t,b];
+				var i = margins.indexOf(Math.min.apply(Math, margins));
+				margins = [0,0,0,0];
+				margins[i] = 1;
+				
+				// animate
+				if(margins[0]){
+					$selectors.container.animate({"left":settings.sticking_margin+"px"}, 500).css({'right':'auto'});
+				}else if(margins[1]){
+					$selectors.container.animate({"right":settings.sticking_margin+"px"}, 500).css({'left':'auto'});
+				}else if(margins[2]){
+					$selectors.container.animate({"top":settings.sticking_margin+"px"}, 500).css({'bottom':'auto'});
+				}else if(margins[3]){
+					$selectors.container.animate({"bottom":settings.sticking_margin+"px"}, 500).css({'top':'auto'});
 				}
 				
+			}
 
-			}, settings.sticking_delay);
-			
+			// stick to corner
+			if(settings.stick_to_corner){
+				// vertical
+				if(position.left < windowWidth/2){
+					l = 1;
+				}else{
+					l = 0;
+				}
+				
+				// horizontal
+				if(position.top < windowHeight/2){
+					t = 1;
+				}else{
+					t = 0;
+				}
+				
+				// animate
+				if(t && l){
+					$selectors.container.animate({"left":settings.sticking_margin+"px","top":settings.sticking_margin+"px"}, 500).css({'right':'auto','bottom':'auto'});
+				}else if(t && !l){
+					$selectors.container.animate({"right":settings.sticking_margin+"px","top":settings.sticking_margin+"px"}, 500).css({'left':'auto','bottom':'auto'});
+				}else if(!t && l){
+					$selectors.container.animate({"left":settings.sticking_margin+"px","bottom":settings.sticking_margin+"px"}, 500).css({'right':'auto','top':'auto'});
+				}else if(!t && !l){
+					$selectors.container.animate({"right":settings.sticking_margin+"px","bottom":settings.sticking_margin+"px"}, 500).css({'left':'auto','top':'auto'});
+				}
+			}
+		}
+		
+		/* timing helpers */	
+		methods.start_sticking = function (){
+		
+			$selectors.container.mouseleave(function() {
+
+				if(status.dragging || status.in_animation || status.sticking){ return;}
+
+				console.log('---mouse leave');
+
+				setTimeout(function() {
+				methods.stickToSide();
+				}, settings.sticking_delay);	// add small delay
+				
+			});
+
 		}
 
+		/* adds the functionalities to the menu */
 		methods.init = function (){
 
-			// make drageable
+			// add functionality: drageable
 			$selectors.container.draggable({
 				start: function(e) {
 					status.dragging = 1;
 				},
 				stop: function(event, ui) {
-
+					// stick to side after dragging
 					setTimeout(function() {
 						status.dragging = 0;
-						methods.stickToSide();
-					}, settings.drag_block);
+						//methods.start_sticking();
+					}, settings.drag_block);		// dragbug fix
 				}
 			});
 		
-			// open/close
+			// add functionality: open/close
 			$selectors.openClose.bind('click',methods.openClose);
 			
-			// opacity
-			//methods.hoverOpacity();
+			// add functionality: pinning
+			$selectors.pin.bind('click',methods.pin);
+			
+			methods.start_sticking();
 
 		}
 		
@@ -181,6 +209,7 @@ jQuery(document).ready(function($) {
 	
 }( jQuery ));
 
+/* initiate on DOM  element */
 $('#hover_nav').pinMenu({});
 
 
