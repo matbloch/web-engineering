@@ -327,7 +327,7 @@ section.full-width { padding: 0 }
 section h2 { font-size: 40px }
 /* navigation */
 .nav {
-    height: 62px; /* same as icons */
+    height: 62px; /* same as icons */    
 }
  .nav .items {
      overflow: auto;
@@ -335,6 +335,10 @@ section h2 { font-size: 40px }
      padding: 0;
      margin: 0;
      margin-left: 60px;
+     display: -webkit-flex;
+     -webkit-flex-direction: row;
+    -webkit-justify-content: center/*space-between*/;
+    /*-webkit-flex-wrap: wrap;*/
  }
   .nav .items li { display: inline-block }
  .nav .page-title {
@@ -357,6 +361,12 @@ section.intro {
 }
  section.intro .description { background-color: rgba(0, 0, 0, 0.42) }
 section.blog { background-image: url(images/bg2.png) }
+section.blog.row, section.portfolio.row, section.contactus.row, section.footer.row {
+    display: -webkit-flex;
+     -webkit-flex-direction: row;
+    -webkit-justify-content: center/*space-between*/;
+    -webkit-flex-wrap: wrap;
+}
  section.blog img {
      float: left;
      width: 120px;
@@ -364,7 +374,12 @@ section.blog { background-image: url(images/bg2.png) }
      margin-bottom: 10px;
  }
  section.blog li > div { height: 200px }
-section.portfolio { background-image: url(images/bg3.png) }
+section.portfolio { background-image: url(images/bg3.png);
+                    display: -webkit-flex;
+     -webkit-flex-direction: row;
+    -webkit-justify-content: center/*space-between*/;
+    -webkit-flex-wrap: wrap;
+}
  section.portfolio li > div { height: 236px }
 section.contactus { background-image: url(images/bg4.png) }
  section.contactus input { float: right }
@@ -381,7 +396,10 @@ section.contactus { background-image: url(images/bg4.png) }
     .col-4,
     .col-3,
     .col-2,
-    .col-1 { width: 50% }
+    .col-1 { 
+    width: 50%;
+    -webkit-flex-direction: column;
+}
     section.portfolio li > div {
         height: 430px;
         float: none;
@@ -396,6 +414,7 @@ section.contactus { background-image: url(images/bg4.png) }
          margin: 0;
          margin-left: 40px;
          margin-right: 20px;
+         -webkit-justify-content: space-between;
      }
       .nav .items li { display: inline-block }
      .nav .page-title {
@@ -425,7 +444,9 @@ section.contactus { background-image: url(images/bg4.png) }
     .col-4,
     .col-3,
     .col-2,
-    .col-1 { width: 100% }
+    .col-1 { width: 100%;
+             -webkit-flex-direction: column;
+}
     section.portfolio li > div {
         height: auto;
         float: none;
@@ -443,6 +464,7 @@ section.contactus { background-image: url(images/bg4.png) }
          margin-left: 20px;
          text-align: center;
          background-color: white;
+         -webkit-justify-content: space-between;
      }
       .nav .items li { display: inline }
        .nav .items li > a> img { height: 50px }
@@ -468,6 +490,7 @@ section.contactus { background-image: url(images/bg4.png) }
          margin-left: 20px;
          text-align: center;
          background-color: white;
+         -webkit-justify-content: flex-end;
      }
 }
 /* Custom */
