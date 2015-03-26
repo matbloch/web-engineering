@@ -1,5 +1,5 @@
 <!doctype html>
-<?php     global $img_uri; ?>
+<?php global $img_uri; ?>
 <html <?php language_attributes(); ?> class="no-js">
 	<head>
 		<meta charset="<?php bloginfo('charset'); ?>">
@@ -21,13 +21,25 @@
 		<a data-fn="pin" class="pin" href="#" ></a>
 		<div class="content">
 			<ul class="items">
-					<li class="index"><a href="index.html"><img src="<?php echo $img_uri.'mm1.png'; ?>"></a></li>
-					<li class="blog"><a href="blog.html"><img src="<?php echo $img_uri.'mm2.png'; ?>"></a></li>
-					<li class="portfolio"><a href="portfolio.html"><img src="<?php echo $img_uri.'mm3.png'; ?>"></a></li>
-					<li class="contactus"><a href="contactus.html"><img src="<?php echo $img_uri.'mm4.png'; ?>"></a></li>
+					<li class="index"><a href="<?php echo get_permalink( get_page_by_path( 'home' ) );?>"><img src="<?php echo $img_uri.'mm1.png'; ?>"></a></li>
+					<li class="blog"><a href="<?php echo get_permalink( get_page_by_path( 'blog' ) );?>"><img src="<?php echo $img_uri.'mm2.png'; ?>"></a></li>
+					<li class="portfolio"><a href="<?php echo get_permalink( get_page_by_path( 'portfolio' ) );?>"><img src="<?php echo $img_uri.'mm3.png'; ?>"></a></li>
+					<li class="contactus"><a href="<?php echo get_permalink( get_page_by_path( 'contact-us' ) );?>"><img src="<?php echo $img_uri.'mm4.png'; ?>"></a></li>
 			</ul>
 		</div>
 	</nav>
 	
 	
-	
+	<div class="page-wrapper">
+		<header class="nav">
+			<div class="page-title padding-l-20 bg-clr-white">
+				<h1>LARA JADE</h1>
+			</div>
+			<nav class="items">
+				<li><a href="<?php echo get_permalink( get_page_by_path( 'home' ) );?>"><img src="<?php echo $img_uri.'m1.png'; ?>"></a></li>
+				<li><a href="<?php echo get_permalink( get_page_by_path( 'blog' ) );?>"><img src="<?php echo $img_uri.'m2.png'; ?>"></a></li>
+				<li><a href="<?php echo get_permalink( get_page_by_path( 'portfolio' ) );?>"><img src="<?php echo $img_uri.'m3.png'; ?>"></a></li>
+				<li><a href="<?php echo get_permalink( get_page_by_path( 'contact-us' ) );?>"><img src="<?php echo $img_uri.'m4.png'; ?>"></a></li>
+			</nav>
+		</header>
+		<div class="content-wrapper" role="main">

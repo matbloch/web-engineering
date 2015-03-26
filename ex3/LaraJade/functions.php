@@ -85,6 +85,27 @@ function lj_styles()
 	Content manipulation
 \*------------------------------------*/
 
+function new_excerpt_more( $more ) {
+	return ' <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">' . __('Read More', 'your-text-domain') . '</a>';
+}
+add_filter( 'excerpt_more', 'new_excerpt_more' );
+
+function lj_excerpt($post, $more = true, $length = 30 ) {    
+    if( $post->post_excerpt ) {
+        $excerpt = $post->post_excerpt;
+    } else {
+        $content = $post->post_content;
+        $excerpt = wp_trim_words( $content , $length );
+    }
+	
+    echo $excerpt;
+
+	if($more){
+		echo '<a class="read_more" href="'.esc_url(get_permalink($post->ID)).'">More</a>';
+	}
+}
+
+
 /*------------------------------------*\
 	Actions, Filters, ShortCodes
 \*------------------------------------*/
