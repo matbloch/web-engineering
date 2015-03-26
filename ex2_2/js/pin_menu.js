@@ -10,12 +10,11 @@ jQuery(document).ready(function($) {
 	
 		/* default settings */
 		var settings = $.extend({
-			fadeout_opacity: 0.4,
-			drag_block: 200,
-			sticking_delay: 2000,
-			sticking_margin: 20,
-			stick_to_corner: 0,
-			stick_to_side:1
+			drag_block: 200,	// delay to fix fast drag movement
+			sticking_delay: 2000,	// delay before menu sticks to side
+			sticking_margin: 20,	// sticking margin
+			stick_to_corner: 0, 	
+			stick_to_side:1		// stick to the nearest browser side
 		}, options );
 		
 		/* setup selectors */
@@ -64,9 +63,6 @@ jQuery(document).ready(function($) {
 			
 			// toggle status class
 			$selectors.container.toggleClass('closed');
-			
-			// stick to the side after the menu has been resized
-			//methods.start_sticking();
 
 		}
 		
@@ -86,9 +82,7 @@ jQuery(document).ready(function($) {
 		methods.stickToSide = function (e){
 			
 			// always abort if on hover
-			if ($selectors.container.is(":hover")) {
-					return;
-			}
+			if ($selectors.container.is(":hover")) {return;}
 			
 			// don't stick to side, if the menu is pinned, an animation is running,already sticked, or beeing draged
 			if(status.sticked || status.dragging || status.pinned || status.in_animation){return;}
@@ -181,14 +175,12 @@ jQuery(document).ready(function($) {
 			// add functionality: drageable
 			$selectors.container.draggable({
 				start: function(e) {
+					// set draging lock
 					status.dragging = 1;
 				},
 				stop: function(event, ui) {
-					// stick to side after dragging
-					setTimeout(function() {
-						status.dragging = 0;
-						//methods.start_sticking();
-					}, settings.drag_block);		// dragbug fix
+					// release draging lock (fast movements lead to mouseout)
+					setTimeout(function() {status.dragging = 0;}, settings.drag_block);
 				}
 			});
 		
@@ -198,6 +190,7 @@ jQuery(document).ready(function($) {
 			// add functionality: pinning
 			$selectors.pin.bind('click',methods.pin);
 			
+			// add functionality: sticking to window side
 			methods.start_sticking();
 
 		}
