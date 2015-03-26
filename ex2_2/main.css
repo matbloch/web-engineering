@@ -361,7 +361,7 @@ section.intro {
 }
  section.intro .description { background-color: rgba(0, 0, 0, 0.42) }
 section.blog { background-image: url(images/bg2.png) }
-section.blog.row, section.portfolio.row, section.contactus.row, section.footer.row {
+section .blog .row, section .portfolio .row, section .contactus .row, section .footer .row {
     display: -webkit-flex;
      -webkit-flex-direction: row;
     -webkit-justify-content: center/*space-between*/;
@@ -384,6 +384,10 @@ section.portfolio { background-image: url(images/bg3.png);
 section.contactus { background-image: url(images/bg4.png) }
  section.contactus input { float: right }
  section.contactus textarea { width: 100% }
+#hover_nav.items {
+    display: -webkit-flex;
+    -webkit-flex-wrap: wrap;
+}
 /*------------------------------------*\
     RESPONSIVE
 \*------------------------------------*/
@@ -399,6 +403,10 @@ section.contactus { background-image: url(images/bg4.png) }
     .col-1 { 
     width: 50%;
     -webkit-flex-direction: column;
+}
+#hover_nav {
+    width: 250px;
+    height: 250px;
 }
     section.portfolio li > div {
         height: 430px;
@@ -447,6 +455,10 @@ section.contactus { background-image: url(images/bg4.png) }
     .col-1 { width: 100%;
              -webkit-flex-direction: column;
 }
+#hover_nav {
+    width: 200px;
+    height: 200px;
+}
     section.portfolio li > div {
         height: auto;
         float: none;
@@ -483,6 +495,10 @@ section.contactus { background-image: url(images/bg4.png) }
         margin: 0;
         padding: 0;
     }
+#hover_nav {
+    width: 150px;
+    height: 150px;
+}
     .nav { height: 95px }
      .nav .items li > a> img { height: 30px }
      .nav .items {
