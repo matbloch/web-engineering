@@ -29,6 +29,9 @@ function register_session(){
 
 add_action('init','register_session');
 
+$tmpl_uri = get_template_directory_uri();
+$img_uri = get_template_directory_uri().'/img/';
+
 /*------------------------------------*\
 	Custom Post Types
 \*------------------------------------*/
@@ -42,6 +45,9 @@ add_action('init','register_session');
 function lj_header_scripts()
 {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
+		
+        wp_register_script('jq-ui', get_template_directory_uri() . '/js/vendor/jquery-ui.min.js', array('jquery'), '1.0.0'); // jq ui
+		wp_enqueue_script('jq-ui'); // Enqueue it!
 		
         wp_register_script('pin_menu', get_template_directory_uri() . '/js/pin_menu.js', array('jquery'), '1.0.0'); // Pin Menu
 		wp_enqueue_script('pin_menu'); // Enqueue it!

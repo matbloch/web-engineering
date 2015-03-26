@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	
 		/* default settings */
 		var settings = $.extend({
-			drag_block: 200,	// delay to fix fast drag movement
+			drag_block: 100,	// delay to fix fast drag movement
 			sticking_delay: 2000,	// delay before menu sticks to side
 			sticking_margin: 20,	// sticking margin
 			stick_to_corner: 0, 	
