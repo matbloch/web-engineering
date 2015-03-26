@@ -43,6 +43,9 @@ function lj_header_scripts()
 {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
 		
+        wp_register_script('pin_menu', get_template_directory_uri() . '/js/pin_menu.js', array('jquery'), '1.0.0'); // Pin Menu
+		wp_enqueue_script('pin_menu'); // Enqueue it!
+		
         wp_register_script('scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_localize_script('scripts', 'WPURLS', array( 'site_url' => get_option('siteurl'), 'template_url' => get_bloginfo('template_url') )); // Add Page Structure
 		wp_enqueue_script('scripts'); // Enqueue it!
