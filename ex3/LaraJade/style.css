@@ -52,6 +52,10 @@ ul {
     padding: 0;
 }
 strong { font-weight: bold }
+
+input, select, textarea {
+    color: black;
+}
 /*------------------------------------*\
     LAYOUTING HELPERS
 \*------------------------------------*/
@@ -396,11 +400,23 @@ section.contactus { background-image: url(img/bg4.png) }
     -webkit-flex-wrap: wrap;
 }
 /* single post */
-
 section.single-post {
 color: #4D4D4F;
 }
 
+/* contact form */
+.feedback{
+padding: 20px 20px;
+margin-bottom: 20px;
+}
+.feedback.success{
+color: #008000;
+background-color: #DCFFDC;
+}
+.feedback.error{
+color:red;
+background-color: #FFDCDC;
+}
 /*------------------------------------*\
     RESPONSIVE
 \*------------------------------------*/
