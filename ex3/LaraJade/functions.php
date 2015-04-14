@@ -42,6 +42,10 @@ require('inc/contactform.php');
 	Custom Post Types
 \*------------------------------------*/
 
+require('inc/cpt.php');
+
+$cpts = new CPT();
+
 
 
 /*------------------------------------*\
