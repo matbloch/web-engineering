@@ -8,13 +8,13 @@
 		'post_status' => 'publish');
 	
 		$portfolio_posts = wp_get_recent_posts( $args , OBJECT);
-		$portfolio_posts = array_chunk($portfolio_posts,4);
+		if(count($portfolio_posts)>4):$portfolio_posts = array_chunk($portfolio_posts,4);endif;
 	?>
 
 	<!-- <section> -->
 	<section class="portfolio padding-10">
 		
-		<?php if(count(portfolio_posts)>4):foreach($portfolio_posts as $block): ?>
+		<?php if(count($portfolio_posts)>4):foreach($portfolio_posts as $block): ?>
 		<ul class="row">
 			<?php foreach($block as $post): ?>
 			<li class="col-3 padding-10">
@@ -31,6 +31,7 @@
 		<?php endforeach;else: ?>
 		<ul class="row">
 			<?php foreach($portfolio_posts as $post): ?>
+
 			<li class="col-3 padding-10">
 				<div class="bg-clr-white"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
 					<div class="padding-10">
