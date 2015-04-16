@@ -1,5 +1,11 @@
+body,html{
+margin:0;
+padding:0;
+}
+
 body {
 background: white;
+color:black;
 }
 .gallery_class {
 
