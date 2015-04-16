@@ -31,18 +31,42 @@
 			<article id="post-<?php the_ID(); ?>" <?php post_class(array("padding-20", "row")); ?>>
 						<div class="col-3 padding-20">
 							<img id="postthumb<?php echo $post->ID; ?>" src="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>" alt="">
+							<?php if ( current_user_can( 'edit_post', $post->ID ) ) { ?>
+								<br/><br/><a href="javascript:editPost(<?php echo $post->ID; ?>);" id="editlink<?php echo $post->ID; ?>">Edit In-line</a> &nbsp;
+							<?php } ?>	
 						</div>
 						<div class="col-9 padding-20">
 							<h2 class="posttitle" id="posttitle<?php echo $post->ID; ?>"><?php echo $post->post_title; ?></h2>
 
 							<div class="posttext" id="post<?php echo $post->ID; ?>"><?php echo the_content(); ?></div>
 						</div>
+
+<?php
+							// Find connected pages
+							$connected = new WP_Query( array(
+							  'connected_type' => 'posts_to_portfolios',
+							  'connected_items' => get_queried_object(),
+							  'nopaging' => true,
+							) );
+							// Display connected pages
+							if ( $connected->have_posts() ) :
+							?>
+							<h3>Related portfolios:</h3>
+							<ul>
+							<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
+								<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+							<?php endwhile; ?>
+							</ul>
+
+							<?php 
+							// Prevent weirdness
+							wp_reset_postdata();
+
+							endif;
+							?>
+							
+						</div>
 				<br class="clear">
-
-				<?php if ( current_user_can( 'edit_post', $post->ID ) ) { ?>
-					<a href="javascript:editPost(<?php echo $post->ID; ?>);" id="editlink<?php echo $post->ID; ?>">Edit In-line</a> &nbsp;
-				<?php } ?>
-
 			</article>
 		<?php endwhile;endif; ?>
 	</section>

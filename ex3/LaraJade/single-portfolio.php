@@ -12,32 +12,34 @@
 						<br>
 						 <?php echo get_post_meta( get_the_ID(), 'publishing_year', true ); ?>
 						 <br>
-							<?php the_content(); ?>
-						</div>
+							<div class="padding-b-20"><?php the_content(); ?></div>
+
                                 <?php
-// Find connected pages
-$connected = new WP_Query( array(
-  'connected_type' => 'posts_to_portfolios',
-  'connected_items' => get_queried_object(),
-  'nopaging' => true,
-) );
+								// Find connected pages
+								$connected = new WP_Query( array(
+								  'connected_type' => 'posts_to_portfolios',
+								  'connected_items' => get_queried_object(),
+								  'nopaging' => true,
+								) );
 
-// Display connected pages
-if ( $connected->have_posts() ) :
-?>
-<h3>Related posts:</h3>
-<ul>
-<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
-    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-<?php endwhile; ?>
-</ul>
+								// Display connected pages
+								if ( $connected->have_posts() ) :
+								?>
+								<h3>Related posts:</h3>
+								<ul>
+								<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
+									<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+								<?php endwhile; ?>
+								</ul>
 
-<?php 
-// Prevent weirdness
-wp_reset_postdata();
+								<?php 
+								// Prevent weirdness
+								wp_reset_postdata();
 
-endif;
-?>
+								endif;
+								?>
+						</div>
+
 				<br class="clear">
 
 				<?php edit_post_link(); ?>
