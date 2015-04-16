@@ -51,6 +51,8 @@
 							// Display connected pages
 							if ( $connected->have_posts() ) :
 							?>
+							<br class="clear">
+
 							<h3>Related portfolios:</h3>
 							<ul>
 							<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
