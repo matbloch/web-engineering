@@ -17,7 +17,7 @@
 		<?php if(count($portfolio_posts)>4):foreach($portfolio_posts as $block): ?>
 		<ul class="row">
 			<?php foreach($block as $post): ?>
-			<li class="col-3 padding-10">
+			<li class="col-3 padding-10"><a href="<?php echo get_post_permalink($post->ID); ?>" target="_blank">
 				<div class="bg-clr-white"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
 					<div class="padding-10">
 						<strong><?php echo $post->post_title; ?></strong>
@@ -25,14 +25,14 @@
 						 <?php echo get_post_meta( $post->ID, 'publishing_year', true ); ?>
 					</div>
 				</div>
+				</a>
 			</li>
 			<?php endforeach; ?>
 		</ul>
 		<?php endforeach;else: ?>
 		<ul class="row">
 			<?php if($portfolio_posts):foreach($portfolio_posts as $post): ?>
-
-			<li class="col-3 padding-10"><a href="<?php the_permalink(); ?>" target="_blank">
+			<li class="col-3 padding-10"><a href="<?php echo get_post_permalink($post->ID); ?>" target="_blank">
 				<div class="bg-clr-white"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
 					<div class="padding-10">
 						<strong><?php echo $post->post_title; ?></strong>

@@ -39,7 +39,8 @@ class CPT {
         'rewrite' => true,
 		'show_ui' => true,
 		'supports' => array('title', 'thumbnail', 'editor'),
-		'has_archive' => true
+		'has_archive' => true,
+		'rewrite' => array('slug'=>'portfolio_posts')
 		)
 		);
 		
