@@ -53,10 +53,11 @@
 								'post_status' => 'publish');
 							
 							$latest_post = wp_get_recent_posts( $args , OBJECT);
-							if(!empty($latest_post)){
-								echo lj_excerpt($latest_post[0]);
-							}
-							?>
+							if(!empty($latest_post)): ?>
+                                 <strong><?php echo $latest_post[0]->post_title; ?></strong></br>
+								<?php echo lj_excerpt($latest_post[0]); ?>
+							
+							<?php  endif; ?>
 						</div>
 						<div class="col-3 padding-lr-10">
 							<strong>Last Project</strong>

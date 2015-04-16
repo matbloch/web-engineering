@@ -35,7 +35,8 @@ class CPT {
 		'not_found' => 'no entry found',
 		'not_found_in_trash' => 'no entry found in trash',
 		),
-		'public' => false,
+		'public' => true,
+        'rewrite' => true,
 		'show_ui' => true,
 		'supports' => array('title', 'thumbnail', 'editor'),
 		'has_archive' => true
