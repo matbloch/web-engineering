@@ -95,12 +95,12 @@ class ContactForm {
 		</div>
 		<div class="col-6 padding-20 bg-clr-white-transp">
 			<div >
-				<strong >Email</strong><strong class="float-right">larajade@larajade.co.uk</strong>
+				<strong >Email</strong><strong class="float-right"><?php echo get_theme_mod( 'contact_email', '' ); ?></strong>
 				<br>
-				<strong >Fax</strong><strong class="float-right"> +44 (0) 1234 567891</strong>
+				<strong >Fax</strong><strong class="float-right"> <?php echo get_theme_mod( 'contact_phone', '' ); ?> </strong>
 				<br>
-				<strong >Address: </strong><strong> New Chrichton Cottage, Arradoul, Buckie, AB43 AP
-				Scotland UK</strong>
+				<strong >Address: <br></strong><strong> <?php echo get_theme_mod( 'contact_address', 'No contact address has been set yet.' ); ?>
+				</strong>
 			</div>
 		</div>
 		</div>

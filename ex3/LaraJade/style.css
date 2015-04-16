@@ -159,6 +159,9 @@ a.read_more{
 color:white;
 font-weight:bold;
 }
+.post_art{
+    height: 250px;
+}
 
 /*------------------------------------*\
     HOVER MENU
@@ -448,6 +451,9 @@ background: #3279BB;
 color:#fff;
 }
 
+article {
+   color: #fff;
+}
 /*------------------------------------*\
     RESPONSIVE
 \*------------------------------------*/

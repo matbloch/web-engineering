@@ -102,6 +102,152 @@ function my_pagination($pages = '', $range = 1)
 }
 
 /*------------------------------------*\
+	Custom headers
+\*------------------------------------*/
+
+$args = array(
+	'flex-width'    => true,
+	'width'         => 1000,
+	'flex-height'    => true,
+	'height'        => 200,
+	'default-image' => get_template_directory_uri() . '/img/header1.jpg',
+	'uploads'       => true,
+);
+add_theme_support( 'custom-header', $args );
+
+
+/*------------------------------------*\
+	Theme customize page
+\*------------------------------------*/
+
+function my_customizer_menu() {
+    add_theme_page( 'Customize', 'myCustomize', 'edit_theme_options', 'customize.php' );
+}
+add_action( 'admin_menu', 'my_customizer_menu' );
+
+/**
+ * Adds the individual sections, settings, and controls to the theme customizer
+ */
+function my_customizer( $wp_customize ) {
+    $wp_customize->add_section(
+        'contact_section',
+        array(
+            'title' => 'Contact Info Settings',
+            'description' => '',
+            'priority' => 35,
+        )
+    );
+    $wp_customize->add_setting(
+    'contact_address',
+    array(
+        'default' => get_theme_mod( 'contact_address', 'No contact address has been set yet.' ),
+    )
+);
+$wp_customize->add_control(
+    'contact_address',
+    array(
+        'label' => 'Address text',
+        'section' => 'contact_section',
+        'type' => 'text',
+    )
+);
+
+$wp_customize->add_setting(
+    'contact_phone',
+    array(
+        'default' => get_theme_mod( 'contact_phone', '' ),
+    )
+);
+$wp_customize->add_control(
+    'contact_phone',
+    array(
+        'label' => 'Phone number',
+        'section' => 'contact_section',
+        'type' => 'text',
+    )
+);
+
+$wp_customize->add_setting(
+    'contact_email',
+    array(
+        'default' => get_theme_mod( 'contact_email', '' ),
+    )
+);
+$wp_customize->add_control(
+    'contact_email',
+    array(
+        'label' => 'Email Address',
+        'section' => 'contact_section',
+        'type' => 'text',
+    )
+);
+
+
+$wp_customize->add_setting(
+    'headline-color',
+    array(
+        'default' => get_theme_mod( 'headline-color', '#444444' ),
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+ 
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'headline-color',
+        array(
+            'label' => 'Headline text color',
+            'section' => 'colors',
+            'settings' => 'headline-color'
+        )
+    )
+);
+
+
+$wp_customize->add_setting(
+    'background-color',
+    array(
+        'default' => get_theme_mod( 'background-color', '#2d2d2d' ),
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+ 
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'background-color',
+        array(
+            'label' => 'Background Color',
+            'section' => 'colors',
+            'settings' => 'background-color'
+        )
+    )
+);
+
+$wp_customize->add_setting(
+    'article-color',
+    array(
+        'default' => get_theme_mod( 'article-color', '#444444' ),
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+ 
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'article-color',
+        array(
+            'label' => 'Article text color',
+            'section' => 'colors',
+            'settings' => 'article-color'
+        )
+    )
+);
+}
+add_action( 'customize_register', 'my_customizer' );
+
+define( 'NO_HEADER_TEXT', true );
+/*------------------------------------*\
 	JS
 \*------------------------------------*/
 

@@ -12,7 +12,17 @@
 		<meta name="description" content="<?php bloginfo('description'); ?>">
 
 		<?php wp_head(); ?>
-
+        <style type="text/css">
+            body {
+    background-color: <?php echo get_theme_mod( 'background-color', '#414141' ); ?>;
+}
+            article {
+   color: <?php echo get_theme_mod( 'article-color', '#414141' ); ?>;
+}
+            h1,h2,h3,h4 {color:<?php echo get_theme_mod( 'headline-color', '#414141' ); ?>;
+            }
+            
+        </style>
 	</head>
 	<body <?php body_class(); ?>>
 	
@@ -31,6 +41,7 @@
 	
 	
 	<div class="page-wrapper">
+        <img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" />
 		<header class="nav">
 			<div class="page-title padding-l-20 bg-clr-white">
 				<h1>LARA JADE</h1>

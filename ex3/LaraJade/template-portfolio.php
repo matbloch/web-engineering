@@ -18,13 +18,15 @@
 		<ul class="row">
 			<?php foreach($block as $post): ?>
 			<li class="col-3 padding-10">
-				<div class="bg-clr-white"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
+                <article id="portfo-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<div class="bg-clr-white post_art"></div><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
 					<div class="padding-10">
 						<strong><?php echo $post->post_title; ?></strong>
 						<br>
 						 <?php echo get_post_meta( $post->ID, 'publishing_year', true ); ?>
 					</div>
 				</div>
+                    </article>
 			</li>
 			<?php endforeach; ?>
 		</ul>
@@ -32,15 +34,18 @@
 		<ul class="row">
 			<?php if($portfolio_posts):foreach($portfolio_posts as $post): ?>
 
-			<li class="col-3 padding-10"><a href="<?php the_permalink(); ?>" target="_blank">
-				<div class="bg-clr-white"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>" alt="">
+			<li class="col-3 padding-10">
+                <article id="portfo-<?php the_ID(); ?>" <?php post_class(); ?>>
+                    <a href="<?php the_permalink(); ?>" target="_blank">
+				<div class="bg-clr-white post_art"><img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>"  alt="">
 					<div class="padding-10">
 						<strong><?php echo $post->post_title; ?></strong>
 						<br>
 						 <?php echo get_post_meta( $post->ID, 'publishing_year', true ); ?>
 					</div>
 				</div>
-                </a>
+                        </a>
+                    </article>
 			</li>
 			<?php endforeach; ?>
 		</ul>
