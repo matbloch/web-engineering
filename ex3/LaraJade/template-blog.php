@@ -30,7 +30,7 @@
 								<div>
 									<img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>" alt="">
 									<a href="<?php the_permalink(); ?>" target="_blank"><strong><?php echo $post->post_title; ?></strong></a>.
-									<?php if(has_excerpt()):the_excerpt(); ?><a href="<?php echo the_permalink(); ?>" target="_blank" > Read More...</a><?php endif ?>
+									<?php if(has_excerpt()):the_excerpt(); ?><a href="<?php echo the_permalink; ?>" target="_blank" > Read More...</a><?php else: echo $yourString = substr($post->post_content,0,300); endif?>
 								</div>
 							</div>
                                 </article>

@@ -451,9 +451,16 @@ background: #3279BB;
 color:#fff;
 }
 
+/* portfolio */
+
+section.portfolio a, section.blog a{
+color:black;
+}
+
 article {
    color: #fff;
 }
+
 /*------------------------------------*\
     RESPONSIVE
 \*------------------------------------*/

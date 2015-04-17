@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=0.4, user-scalable=no" />
+    <title>Continuous Tilting Example</title>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/JavaScript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery_tiltandtap.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="thumbs-block" id="thumbs-block">
+        <div class="wrp"><img id="img1" class="gallery_class selected" src="img/img1.jpg" /></div>
+        <div class="wrp"><img id="img2" class="gallery_class notselected" src="img/img2.jpg" /></div>
+        <div class="wrp"><img id="img3" class="gallery_class notselected" src="img/img3.jpg" /></div>
+        <div class="wrp"><img id="img4" class="gallery_class notselected" src="img/img4.jpg"  /></div>
+</div>
+<div id= "touch" >
+
+	<div>
+		<!--   USE THIS DIV AS THE TARGET FOR THE TAP HOLD INTERACTION  -->
+		<p id="info"></p>
+	</div>
+</div>
+
+<script>
+$("#box").tiltandtap({
+       tiltDown  : { onTiltDown: changeColor},
+       tiltUp    : { onTiltUp: changeColor}
+       });
+function changeColor ()
+{
+    alert('test');
+}
+</script>
+
+
+</body>
+</html>
