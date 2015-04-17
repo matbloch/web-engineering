@@ -32,12 +32,12 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			'current_item' : 0,
 			'next_item' : 1,
 			'previous_item' : 0,
-			'is_zoomed' : 0
+			'is_zoomed' : 0,
+			'show_info' : 0
 		} 
 		
 		/* methods */
 		var methods = {};
-		
 		
 		methods.update_item_position = function(){
 			status.current_item = $selectors.thumbs.filter('.selected').closest('div.wrp').index();
@@ -45,7 +45,7 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			status.previous_item = (status.current_item == 0 ? 0:1 );
 		}
 		
-		methods.show_hide_zoomed_item = function (){
+		methods.update_zoomed_item = function (){
 			// clone current item into div "touch" and add ".centerimg" class to image
 
 			// remove any images
@@ -61,27 +61,36 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 
 		}
 		
-		methods.show_hide_current_item_info = function (){
+		methods.update_current_item_info = function (){
 		
 			$selectors.info_container.html();
-			
-			if(!status.is_zoomed){return;}
+
+			if(!status.show_info){return;}
 			
 			// add info of current image
-			$selectors.info_container.html(map.img1);
-			
-		}
-
-		/* use this method with the tilt-tap events to toggle gallery mode */
-		methods.toggle_gallery_mode = function (){
-			if(status.is_zoomed == 1){
-				status.is_zoomed = 0;
-			}else{
-				status.is_zoomed = 1;
-			}
-			$selectors.container.trigger('modeChange');
+			var map_key = Object.keys(map).filter(function(key) {return map[key] == (status.current_item+1)})[0];
+			$selectors.info_container.html(map_info[map_key]);
 		}
 		
+		
+		/* main function calls */
+		
+		methods.show_zoomed_image = function (){
+			status.is_zoomed = 1;
+			$selectors.container.trigger('galleryModeChange');
+		}
+		methods.hide_zoomed_image = function (){
+			status.is_zoomed = 0;
+			$selectors.container.trigger('galleryModeChange');
+		}
+		methods.show_info = function (){
+			status.show_info = 1;
+			$selectors.container.trigger('infoChange');
+		}
+		methods.hide_info = function (){
+			status.show_info = 0;
+			$selectors.container.trigger('infoChange');
+		}
 		methods.show_next_item = function (){
 			$selectors.thumbs_wrp.eq(status.current_item).find('img').removeClass('selected').addClass('notselected');
 			$selectors.thumbs_wrp.eq(status.next_item).find('img').removeClass('notselected').addClass('selected');
@@ -96,17 +105,19 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 		/* init */
 		methods.init = function (){
 			
-			// update position
+			// update position: when item is changed
 			$selectors.container.bind('itemChange', methods.update_item_position);
-			// update zoom image
-			$selectors.container.bind('itemChange', 'modeChange', methods.show_hide_zoomed_item);
-			// update info
-			$selectors.container.bind('itemChange', methods.show_hide_current_item_info);
+			// update zoom image: when gallery mode or item is changed
+			$selectors.container.bind('itemChange galleryModeChange', methods.update_zoomed_item);
+			// update info: when item or infomode is changed
+			$selectors.container.bind('itemChange infoChange', methods.update_current_item_info);
 
-			
+			// test methods
+			methods.show_info();
+
+				
 			/*
-			TODO: bind tilt-and-tap plugin to toggle_gallery_mode, show_next_item, show_previous_item
-			
+			TODO: bind tilt-and-tap plugin to main functions
 			*/
 			
 		}
