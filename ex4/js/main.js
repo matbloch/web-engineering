@@ -83,12 +83,20 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			status.is_zoomed = 0;
 			$selectors.container.trigger('galleryModeChange');
 		}
+		methods.toggle_zoomed_image = function (){
+			status.is_zoomed = (status.is_zoomed==1?0:1);
+			$selectors.container.trigger('galleryModeChange');
+		}
 		methods.show_info = function (){
 			status.show_info = 1;
 			$selectors.container.trigger('infoChange');
 		}
 		methods.hide_info = function (){
 			status.show_info = 0;
+			$selectors.container.trigger('infoChange');
+		}
+		methods.toggle_info = function (){
+			status.show_info = (status.show_info==1?0:1);
 			$selectors.container.trigger('infoChange');
 		}
 		methods.show_next_item = function (){
