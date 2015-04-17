@@ -13,7 +13,7 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 	
 		/* default settings */
 		var settings = $.extend({
-			drag_block: 100,	// delay to fix fast drag movement
+			default_setting: 100,
 		}, options );
 		
 		/* setup selectors */
