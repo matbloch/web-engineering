@@ -51,21 +51,18 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			// remove any images
 			$selectors.zoom_container.find('img').remove();
 			
-			if(!status.is_zoomed){return};
+			if(status.is_zoomed == 0){return};
 
 			// update image if in zoom mode
 			var $img = $selectors.thumbs_wrp.eq(status.current_item).find('img').clone().removeClass().addClass('centerimg');
 			$selectors.zoom_container.prepend($img);
-			
-			status.is_zoomed = 1;
-
 		}
 		
 		methods.update_current_item_info = function (){
 		
 			$selectors.info_container.html();
 
-			if(!status.show_info){return;}
+			if(status.show_info == 0){return;}
 			
 			// add info of current image
 			var map_key = Object.keys(map).filter(function(key) {return map[key] == (status.current_item+1)})[0];
