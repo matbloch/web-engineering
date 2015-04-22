@@ -42,12 +42,14 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 		methods.update_item_position = function(){
 			status.current_item = $selectors.thumbs.filter('.selected').closest('div.wrp').index();
 			status.next_item = (status.current_item == $selectors.thumbs_wrp.length-1 ? status.current_item:status.current_item+1 );
-			status.previous_item = (status.current_item == 0 ? 0:1 );
+			status.previous_item = (status.current_item == 0 ? 0:status.current_item-1 );
+			
+			console.log("current: "+status.current_item+" | next: "+status.next_item+ "| previous:"+status.previous_item);
 		}
 		
 		methods.update_zoomed_item = function (){
 			// clone current item into div "touch" and add ".centerimg" class to image
-
+			
 			// remove any images
 			$selectors.zoom_container.find('img').remove();
 			
@@ -107,6 +109,12 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			$selectors.container.trigger('itemChange');
 		}
 		
+		test1 = function (){
+			alert('1');
+		}
+		test2 = function (){
+			alert('2');
+		}
 		/* init */
 		methods.init = function (){
 			
@@ -122,8 +130,9 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 				tiltDown  : { onTiltDown: methods.hide_zoomed_image, interaction : {type: "press", element: "touch"}},
 				tiltUp    : { onTiltUp: methods.show_zoomed_image, interaction : {type: "press", element: "touch"}},
 				onTiltLeft  : methods.show_previous_item,
-				onTiltRight    : methods.show_next_item,
-				tiltUp: {onTiltUp: methods.toggle_info, thTiltUp: "hard"}
+				onTiltRight    : methods.show_next_item
+				// todo bind up/down to: methods.toggle_info
+				
 			});
 
 		}
