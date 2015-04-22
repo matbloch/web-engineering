@@ -117,14 +117,15 @@ var map_info = { "img1" : "ETH Terrasse", "img2" : "ETH Main Building, interior"
 			// update info: when item or infomode is changed
 			$selectors.container.bind('itemChange infoChange', methods.update_current_item_info);
 
-			// test methods
-			methods.show_info();
+			// bind tilt-and-tap plugin to main functions
+			$("body").tiltandtap({
+				tiltDown  : { onTiltDown: methods.hide_zoomed_image, interaction : {type: "press", element: "touch"}},
+				tiltUp    : { onTiltUp: methods.show_zoomed_image, interaction : {type: "press", element: "touch"}},
+				onTiltLeft  : methods.show_previous_item,
+				onTiltRight    : methods.show_next_item,
+				tiltUp: {onTiltUp: methods.toggle_info, thTiltUp: "hard"}
+			});
 
-				
-			/*
-			TODO: bind tilt-and-tap plugin to main functions
-			*/
-			
 		}
 		
 		/* start */
