@@ -42,5 +42,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function connectToServer(){
-    // TODO connect to the socket.io server
+    var socket = io();
+    
+	// get current screens
+	socket.on('refresh screens', function(screens){
+			
+			console.log(screens);
+			
+			/*
+		var list = $('ul.mylist')
+		$.each(names, function(i)
+		{
+			var li = $('<li/>')
+				.addClass('ui-menu-item')
+				.attr('role', 'menuitem')
+				.appendTo(list);
+			var aaa = $('<a/>')
+				.text(names[i])
+				.appendTo(li);
+		});
+
+		$('#menu').html(list);
+		*/
+	});
 }
