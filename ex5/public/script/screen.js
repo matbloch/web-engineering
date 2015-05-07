@@ -46,6 +46,6 @@ function getQueryParams() {
 function connectToServer(){
     var socket = io();
 	// send device name to server
-    socket.emit('new screen',devicename);
+    socket.emit('init screen',devicename);
 
 }
