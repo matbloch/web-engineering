@@ -48,4 +48,10 @@ function connectToServer(){
 	// send device name to server
     socket.emit('init screen',devicename);
 
+	// TODO: image change: emtyp imageID means don't show any image
+	socket.on('show image', function(imageID){
+		// ...
+		
+		
+	});
 }

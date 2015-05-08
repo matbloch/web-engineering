@@ -84,7 +84,7 @@ io.sockets.on('connection', function (socket) {
 		
 	});
 	
-   // handle remote selection
+	// handle remote selection
 	socket.on('select image', function(imageID){
 
 		remote_status[socket.id] = imageID;

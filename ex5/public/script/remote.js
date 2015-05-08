@@ -1,5 +1,6 @@
 var currentImage = 0; // the currently selected image
 var imageCount = 7; // the maximum number of images available
+var socket = null;
 
 function showImage (index){
     // Update selection on remote
@@ -9,8 +10,8 @@ function showImage (index){
     images[index].classList.toggle("selected");
 
     // Send the command to the screen
-    // TODO
-    alert("TODO send the index to the screen")
+	socket.emit('select image',currentImage);
+
 }
 
 function initialiseGallery(){
@@ -42,12 +43,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function connectToServer(){
-    var socket = io();
+    socket = io();
     
 	// get current screens
 	socket.on('refresh screens', function(screens){
-			
-			console.log(screens);
+		
+		// TODO: list screen (include screen socket.id to data-attribute)
+		
+		console.log(screens);
 			
 			/*
 		var list = $('ul.mylist')
@@ -66,3 +69,14 @@ function connectToServer(){
 		*/
 	});
 }
+
+
+/*
+
+ TODO:
+ enable screen toggling: bind click event to "toggle remote binding event". Send target screen id received from the data attribute of the corresponding list element
+ 
+ var ScreenSocketID = $({screenListElement}).data('socketID');
+ socket.emit('toggle remote binding',screenSocketID);
+ 
+ */
