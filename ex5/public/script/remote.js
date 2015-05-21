@@ -1,6 +1,7 @@
 var currentImage = 0; // the currently selected image
 var imageCount = 7; // the maximum number of images available
 var socket = null;
+var myScreens = {};
 
 function showImage (index){
     // Update selection on remote
@@ -32,14 +33,15 @@ function initialiseGallery(){
     document.querySelector("img").classList.toggle('selected');
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     initialiseGallery();
 
-    document.querySelector('#toggleMenu').addEventListener("click", function(event){
+    document.querySelector('#toggleMenu').addEventListener("click", function (event) {
         var style = document.querySelector('#menu').style;
-        style.display = style.display == "none" || style.display == ""  ? "block" : "none";
+        style.display = style.display == "none" || style.display == "" ? "block" : "none";
     });
     connectToServer();
+    showImage(0);
 });
 
 function connectToServer(){
@@ -57,6 +59,9 @@ function connectToServer(){
         var list = $('ul.mylist');
         list.html("");
         for (var screen in screens) {
+            if (!(screen in myScreens)) {
+                myScreens[screen] == "disconnected"
+            }
             var li = $('<li/>')
 				.addClass('ui-menu-item')
 				.attr('role', 'menuitem')
@@ -68,12 +73,17 @@ function connectToServer(){
             var aaa = $('<button/>')
                 .addClass('pure-button')
                 .addClass('toggleScreen')
-			    .text("Connect")
-                .attr('data-socketID', screen)
+			    .text(myScreens[screen] == "connected" ? "Disconnect" : "Connect")
+                .attr('data-socketid', screen)
 			    .appendTo(li);
-                
+
         }
-        
+        for (var scrn in myScreens) {
+            if (!(scrn in screens)) {
+                delete (myScreens[scrn]);
+            } 
+        }
+
         $('#menu').html(list);
 
     });
@@ -84,12 +94,14 @@ function connectToServer(){
  enable screen toggling: bind click event to "toggle remote binding event". Send target screen id received from the data attribute of the corresponding list element
  */
 $(document).on("click", ".toggleScreen", function () {
-    var ScreenSocketID = $(this).data('socketID');
+    var ScreenSocketID = $(this).data('socketid');
     console.log(ScreenSocketID);
     socket.emit('toggle remote binding', ScreenSocketID);
     if ($(this).text() == 'Connect') {
+        myScreens[ScreenSocketID] = "connected";
         $(this).text("Disconnect")
     }else{
+        myScreens[ScreenSocketID] = "disconnected";
         $( this ).text('Connect'); 
     }
 });

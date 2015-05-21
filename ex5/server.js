@@ -5,8 +5,8 @@ var io = require('socket.io')(http);
 
 app.use(express.static('public'));
 
-http.listen(8081, function(){
-    console.log('listening on *:8081');
+http.listen(8080, function(){
+    console.log('listening on *:8080');
 });
 
 var screens = {};	// screen socket to screen name mapping
@@ -39,23 +39,23 @@ io.sockets.on('connection', function (socket) {
 
             // clear screen listing
             delete (screens[socket.id]);
-
-            // break active connection
-            if (socket.id in connections) {
-                delete (connections(socket.id));
-            }
-
+            
             // TODO: send unbind message to target remote
             //var screenSocketID = Object.keys(connections).filter(function (key) { return connections[key] === socket.id })[0];
             //if (screenSocketID.length > 0) {
             //   io.sockets.socket(connections[socket.id]).emit('toggle remote binding', screenSocketID);
             //}
-            io.sockets.socket(connections[socket.id]).emit('toggle remote binding', socket.id);
+            io.to(connections[socket.id]).emit('toggle remote binding', socket.id);
+
+            // break active connection
+            if (socket.id in connections) {
+                delete (connections[socket.id]);
+            }
 
             // update remotes
             io.sockets.emit('refresh screens', screens);
         } else {
-            var screenSocketID = Object.keys(connections).filter(function (key) { return connections[key] === socket.id })[0];
+            var screenSocketID = Object.keys(connections).filter(function (key) { return connections[key] === socket.id });
 
             // its a connected remote
             if (screenSocketID && screenSocketID.length > 0) {
@@ -64,9 +64,12 @@ io.sockets.on('connection', function (socket) {
                     delete (remote_status[socket.id]);
                 }
 
-                // break connection
-                delete (connections[screenSocketID]);
-                sync_screen_status(screenSocketID);
+                screenSocketID.forEach(function (screen_socket) {
+		            // break connection
+                    delete (connections[screen_socket]);
+                    sync_screen_status(screen_socket);
+		        });                
+                
             }
 
         }
@@ -109,8 +112,11 @@ function push_remote_status(remoteSocketID){
 	// update image if screen is connected
 	if(remoteSocketID in remote_status){
 		// find screen socket id and update
-		var screenSocketID = Object.keys(connections).filter(function(key) {return connections[key] === remoteSocketID})[0];
-		sync_screen_status(screenSocketID)
+	    console.log(connections);
+		var screenSocketID = Object.keys(connections).filter(function(key) {return connections[key] === remoteSocketID});
+		screenSocketID.forEach(function (screen_socket) {
+		    sync_screen_status(screen_socket);
+		});
 	}
 
 }
@@ -122,10 +128,12 @@ function sync_screen_status(screenSocketID){
 	if(screenSocketID in connections && connections[screenSocketID] in remote_status){
 		// update selected image if a screen is connected and an image is selected on the remote
 		var remoteSocketID = connections[screenSocketID];
-		io.sockets.socket(screenSocketID).emit('show image', remote_status[remoteSocketID]);
+		console.log('show image for ' + screenSocketID);
+		io.to(screenSocketID).emit('show image', remote_status[remoteSocketID]);
 	}else{
 		// empty screen
-		io.sockets.socket(screenSocketID).emit('show image', '');
+        console.log('empty screen for ' + screenSocketID);
+		io.to(screenSocketID).emit('show image', 'CLEAR');
 	}
 
 }
