@@ -46,37 +46,53 @@ function connectToServer(){
     socket = io();
     
 	// get current screens
-	socket.on('refresh screens', function(screens){
-		
-		// TODO: list screen (include screen socket.id to data-attribute)
-		
-		console.log(screens);
-			
-			/*
-		var list = $('ul.mylist')
-		$.each(names, function(i)
-		{
-			var li = $('<li/>')
+    socket.on('refresh screens', function (screens) {
+
+        // TODO: list screen (include screen socket.id to data-attribute)
+
+        console.log(screens);
+
+
+
+        var list = $('ul.mylist');
+        list.html("");
+        for (var screen in screens) {
+            var li = $('<li/>')
 				.addClass('ui-menu-item')
 				.attr('role', 'menuitem')
+                .attr('data-socketID', screen)
 				.appendTo(list);
-			var aaa = $('<a/>')
-				.text(names[i])
+            var aaa = $('<a/>')
+				.text(screens[screen])
 				.appendTo(li);
-		});
+            var aaa = $('<button/>')
+                .addClass('pure-button')
+                .addClass('toggleScreen')
+			    .text("Connect")
+                .attr('data-socketID', screen)
+			    .appendTo(li);
+                
+        }
+        
+        $('#menu').html(list);
 
-		$('#menu').html(list);
-		*/
-	});
+    });
 }
 
-
 /*
-
  TODO:
  enable screen toggling: bind click event to "toggle remote binding event". Send target screen id received from the data attribute of the corresponding list element
- 
- var ScreenSocketID = $({screenListElement}).data('socketID');
- socket.emit('toggle remote binding',screenSocketID);
- 
  */
+$(document).on("click", ".toggleScreen", function () {
+    var ScreenSocketID = $(this).data('socketID');
+    console.log(ScreenSocketID);
+    socket.emit('toggle remote binding', ScreenSocketID);
+    if ($(this).text() == 'Connect') {
+        $(this).text("Disconnect")
+    }else{
+        $( this ).text('Connect'); 
+    }
+});
+
+ 
+ 

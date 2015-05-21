@@ -50,8 +50,11 @@ function connectToServer(){
 
 	// TODO: image change: emtyp imageID means don't show any image
 	socket.on('show image', function(imageID){
-		// ...
-		
+		if (imageID == ''){
+            clearImage();
+		}else{
+		    showImage(imageID);
+		}	
 		
 	});
 }
