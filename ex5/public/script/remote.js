@@ -46,15 +46,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function connectToServer(){
     socket = io();
-    
+
+    socket.emit('init remote');
 	// get current screens
     socket.on('refresh screens', function (screens) {
 
         // TODO: list screen (include screen socket.id to data-attribute)
-
         console.log(screens);
-
-
 
         var list = $('ul.mylist');
         list.html("");
@@ -86,6 +84,20 @@ function connectToServer(){
 
         $('#menu').html(list);
 
+    });
+
+    socket.on('toggle screen', function (ScreenSocketID) {
+        if (ScreenSocketID in myScreens) {
+            socket_btn = $('button[data-socketid="' + ScreenSocketID + '"]');
+            if (myScreens[ScreenSocketID] == "connected") {
+                myScreens[ScreenSocketID] = "disconnected";
+                console.log('toggling is done.');
+                socket_btn.text("Connect");
+            } else {
+                myScreens[ScreenSocketID] = "connected";
+                socket_btn.text("Disconnect");
+            }
+        }
     });
 }
 

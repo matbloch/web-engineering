@@ -30,6 +30,12 @@ io.sockets.on('connection', function (socket) {
         // publish list to all remotes
         io.sockets.emit('refresh screens', screens);
     });
+    
+    // new remote connected
+    socket.on('init remote', function () {
+        // publish screens to all remotes
+        io.sockets.emit('refresh screens', screens);
+    });
 
     // handle socket disconnections
     socket.on('disconnect', function () {
@@ -39,7 +45,7 @@ io.sockets.on('connection', function (socket) {
 
             // clear screen listing
             delete (screens[socket.id]);
-            
+
             // TODO: send unbind message to target remote
             //var screenSocketID = Object.keys(connections).filter(function (key) { return connections[key] === socket.id })[0];
             //if (screenSocketID.length > 0) {
@@ -65,11 +71,11 @@ io.sockets.on('connection', function (socket) {
                 }
 
                 screenSocketID.forEach(function (screen_socket) {
-		            // break connection
+                    // break connection
                     delete (connections[screen_socket]);
                     sync_screen_status(screen_socket);
-		        });                
-                
+                });
+
             }
 
         }
@@ -80,10 +86,17 @@ io.sockets.on('connection', function (socket) {
     socket.on('toggle remote binding', function (screenSocketID) {
 
         // check if screen is already connected to a remote
-        if (screenSocketID in connections && connections[screenSocketID] == socket.id) {
-            // disconnect screen
-            console.log('disconnect screen');
-            delete (connections[screenSocketID]);
+        if (screenSocketID in connections) {
+            if (connections[screenSocketID] == socket.id) {
+                // disconnect screen
+                console.log('disconnect screen');
+                delete (connections[screenSocketID]);
+            }else{
+                console.log('switching screen to another remote');
+                io.to(connections[screenSocketID]).emit('toggle screen', screenSocketID);
+                console.log('connect screen');
+                connections[screenSocketID] = socket.id;
+            }
         } else {
             // set/update connection
             console.log('connect screen');
